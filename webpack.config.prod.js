@@ -62,7 +62,7 @@ module.exports = {
             use: [{
                 loader: 'babel-loader',
                 options: {
-                    presets: ['env', 'react', 'stage-0']
+                    presets: ['env', 'stage-0']
                 }
             }]
         }]
@@ -87,7 +87,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'styles/[name].css',
+            filename: 'static/styles/[name].css',
             chunkFilename: '[id].css'
         }),
         new HtmlWebpackPlugin({
