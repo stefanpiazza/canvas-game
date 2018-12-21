@@ -43,23 +43,32 @@ function Player(id, x, y) {
 	this.id = id;
 	this.x = x;
 	this.y = y;
+	this.dx = 0;
+	this.dy = 0;
+	this.maxSpeed = 10;
 }
 
 Player.prototype = {
+	update: function() {
+		this.x += this.dx;
+		this.y += this.dy;
+	},
+
 	onConnect: function(socket) {
 		PLAYERS[socket.id] = this;
 
-		socket.on('keyPress', (socket) => {
-			var x = this.x;
-			var y = this.y;
+		socket.on('keydown', (socket) => {
+			if (socket.inputId == 'left') this.dx = -this.maxSpeed;
+			if (socket.inputId == 'up') this.dy = -this.maxSpeed;
+			if (socket.inputId == 'right') this.dx = this.maxSpeed;
+			if (socket.inputId == 'down') this.dy = this.maxSpeed;
+		})
 
-			if (socket.inputId == 'left') x--
-			if (socket.inputId == 'up') y--
-			if (socket.inputId == 'right') x++
-			if (socket.inputId == 'down') y++ 
-
-			this.x = x;
-			this.y = y;
+		socket.on('keyup', (socket) => {
+			if (socket.inputId == 'left') this.dx = 0;
+			if (socket.inputId == 'up') this.dy = 0;
+			if (socket.inputId == 'right') this.dx = 0;
+			if (socket.inputId == 'down') this.dy = 0;
 		})
 	},
 
@@ -90,6 +99,7 @@ setInterval(() => {
 
 	for (var i in PLAYERS) {
 		var player = PLAYERS[i];
+		player.update();
 
 		data.players.push({
 			id: player.id,
@@ -103,4 +113,4 @@ setInterval(() => {
 		socket.emit('update', data);
 	}
 
-}, 1000/30); 
+}, 1000/60); 
