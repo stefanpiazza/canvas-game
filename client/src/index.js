@@ -51,25 +51,25 @@ window.addEventListener('keydown', (e) => {
 
 	switch (keyCode) {
 		case 37:
-			socket.emit('keyPress', {
+			socket.emit('keydown', {
 				inputId: 'left'
 			})
 
 			break;
         case 38: 
-			socket.emit('keyPress', {
+			socket.emit('keydown', {
 				inputId: 'up'
 			})
 	        
         	break;
         case 39: 
-			socket.emit('keyPress', {
+			socket.emit('keydown', {
 				inputId: 'right'
 			})
 	        
         	break;
         case 40: 
-			socket.emit('keyPress', {
+			socket.emit('keydown', {
 				inputId: 'down'
 			})
 	        
@@ -79,152 +79,35 @@ window.addEventListener('keydown', (e) => {
 	}
 });
 
-// class Game {
-// 	constructor() {
-// 		this.map = new Map(10, 12);
+window.addEventListener('keyup', (e) => {
+	var keyCode = e.keyCode;
 
-// 		this.map.generate();
-// 		this.map.randomise();
-// 		this.map.draw();
+	switch (keyCode) {
+		case 37:
+			socket.emit('keyup', {
+				inputId: 'left'
+			})
 
-// 		this.player = new Player();
-
-// 		this.player.draw();
-
-// 		window.addEventListener('keydown', (e) => {
-// 			var keyCode = e.keyCode;
-
-// 			switch (keyCode) {
-// 				case 37:
-// 					if (this.player.x > 0) {						
-// 						if (this.map.layout[this.player.x - 1][this.player.y] == 0) {
-// 							this.player.move('left'); 
-// 						}
-// 					}
-
-// 					break;
-// 		        case 38: 
-// 			        if (this.player.y > 0) {
-// 			        	if (this.map.layout[this.player.x][this.player.y - 1] == 0) {
-// 		        			this.player.move('up'); 
-// 		        		}
-// 			        }
-			        
-// 		        	break;
-// 		        case 39: 
-// 			        if (this.player.x < this.map.width - 1) {
-//     		        	if (this.map.layout[this.player.x + 1][this.player.y] == 0) {
-//     	        			this.player.move('right'); 
-//     	        		}
-// 			        }
-			        
-// 		        	break;
-// 		        case 40: 
-// 			        if (this.player.y < this.map.height - 1) {
-//     		        	if (this.map.layout[this.player.x][this.player.y + 1] == 0) {
-//     	        			this.player.move('down'); 
-//     	        		}
-// 			        }
-			        
-// 		        	break;
-// 		        default: 
-// 		        	break;
-// 			}
-// 		});
-// 	}
-
-// 	update() {
-// 		window.requestAnimationFrame(this.update.bind(this));
-// 		ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-// 		this.map.update();
-// 		this.player.update();
-// 	}
-// }
-
-// class Map {
-// 	constructor(width, height) {
-// 		this.width = width;
-// 		this.height = height;
-
-// 		this.layout = [];
-// 	}
-
-// 	generate() {
-// 		var layout = []
-
-// 		for (var i = 0; i < this.width; i++) {
-// 			layout[i] = []
-
-// 			for (var j = 0; j < this.height; j++) {
-// 				layout[i][j] = 0;
-// 			}
-// 		}
-
-// 		this.layout = layout;
-// 	}
-
-// 	randomise() {
-// 		var layout = this.layout;
-
-// 		layout[Math.floor(Math.random() * this.width)][Math.floor(Math.random() * this.height)] = 1;
-// 		layout[Math.floor(Math.random() * this.width)][Math.floor(Math.random() * this.height)] = 1;		
-// 		layout[Math.floor(Math.random() * this.width)][Math.floor(Math.random() * this.height)] = 1;
-// 		layout[Math.floor(Math.random() * this.width)][Math.floor(Math.random() * this.height)] = 1;
-
-// 		layout[Math.floor(Math.random() * this.width)][Math.floor(Math.random() * this.height)] = 2;
-		
-// 		this.layout = layout;
-// 	}
-
-// 	draw() {
-// 		for (var i = 0; i < this.width; i++) {
-// 			for (var j = 0; j < this.height; j++) {
-// 				ctx.fillStyle = colorKey[this.layout[i][j]];
-// 				ctx.fillRect(i * 50, j * 50, 49, 49);
-// 			}
-// 		}
-// 	}
-
-// 	update() {
-// 		this.draw();		
-// 	}
-// }
-
-// class Player {
-// 	constructor() {
-// 		this.x = 0;
-// 		this.y = 0;	
-// 	}
-
-// 	move(direction) {
-// 		switch (direction) {
-// 			case 'left': 
-// 				this.x -= 1;				
-// 				break;
-// 	        case 'up': 
-// 	        	this.y -= 1;
-// 	        	break;
-// 	        case 'right': 
-// 	        	this.x += 1;
-// 	        	break;
-// 	        case 'down': 
-// 	        	this.y += 1;
-// 	        	break;
-// 	        default: 
-// 	        	break;
-// 		}
-// 	}
-
-// 	draw() {
-// 		ctx.fillStyle = colorKey[mapKey['player']];
-// 		ctx.fillRect(this.x * 50, this.y * 50, 49, 49);
-// 	}
-
-// 	update() {
-// 		this.draw();
-// 	}
-// }
-
-// var GAME = new Game();
-// GAME.update();
+			break;
+        case 38: 
+			socket.emit('keyup', {
+				inputId: 'up'
+			})
+	        
+        	break;
+        case 39: 
+			socket.emit('keyup', {
+				inputId: 'right'
+			})
+	        
+        	break;
+        case 40: 
+			socket.emit('keyup', {
+				inputId: 'down'
+			})
+	        
+        	break;
+        default: 
+        	break;
+	}	
+})
