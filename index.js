@@ -46,10 +46,57 @@ function Player(id, x, y) {
 	this.dx = 0;
 	this.dy = 0;
 	this.maxSpeed = 10;
+
+	this.pressLeft = false;
+	this.pressUp = false;
+	this.pressRight = false;
+	this.pressDown = false;
 }
 
 Player.prototype = {
 	update: function() {
+		if (this.pressLeft) {
+			this.dx = -this.maxSpeed;
+		}
+
+		if (this.pressUp) {
+			this.dy = -this.maxSpeed;
+		}
+
+		if (this.pressRight) {
+			this.dx = this.maxSpeed;
+		}
+
+		if (this.pressDown) {
+			this.dy = this.maxSpeed;
+		}
+
+		if (!this.pressLeft || !this.pressUp || !this.pressRight || !this.pressDown) {
+			if (!this.pressLeft) {
+				if (this.dx >= -this.maxSpeed && this.dx < 0) {
+					this.dx ++;
+				}
+			}
+
+			if (!this.pressUp) {
+				if (this.dy >= -this.maxSpeed && this.dy < 0) {
+					this.dy ++;
+				}
+			}
+
+			if (!this.pressRight) {
+				if (this.dx <= this.maxSpeed && this.dx > 0) {
+					this.dx --;
+				}
+			}
+
+			if (!this.pressDown) {
+				if (this.dy <= this.maxSpeed && this.dy > 0) {
+					this.dy --;
+				}
+			}
+		}
+
 		this.x += this.dx;
 		this.y += this.dy;
 	},
@@ -58,17 +105,43 @@ Player.prototype = {
 		PLAYERS[socket.id] = this;
 
 		socket.on('keydown', (socket) => {
-			if (socket.inputId == 'left') this.dx = -this.maxSpeed;
-			if (socket.inputId == 'up') this.dy = -this.maxSpeed;
-			if (socket.inputId == 'right') this.dx = this.maxSpeed;
-			if (socket.inputId == 'down') this.dy = this.maxSpeed;
+			if (socket.inputId == 'left') {
+				this.pressLeft = true;
+				// this.dx = -this.maxSpeed;
+			}
+
+			if (socket.inputId == 'up') {
+				this.pressUp = true;
+				// this.dy = -this.maxSpeed;
+			}
+
+			if (socket.inputId == 'right') {
+				this.pressRight = true;
+				// this.dx = this.maxSpeed;
+			}
+
+			if (socket.inputId == 'down') {
+				this.pressDown = true;
+				// this.dy = this.maxSpeed;
+			}
 		})
 
 		socket.on('keyup', (socket) => {
-			if (socket.inputId == 'left') this.dx = 0;
-			if (socket.inputId == 'up') this.dy = 0;
-			if (socket.inputId == 'right') this.dx = 0;
-			if (socket.inputId == 'down') this.dy = 0;
+			if (socket.inputId == 'left') {
+				this.pressLeft = false;
+			}
+
+			if (socket.inputId == 'up') {
+				this.pressUp = false;
+			}
+
+			if (socket.inputId == 'right') {
+				this.pressRight = false;
+			}
+
+			if (socket.inputId == 'down') {
+				this.pressDown = false;
+			}
 		})
 	},
 
