@@ -39,12 +39,14 @@ server.listen(APP_PORT, () => {
 const SOCKETS = {}
 const PLAYERS = {}
 
-function Player(id, x, y) {
+function Player(id, x, y, width, height) {
 	this.id = id;
 	this.x = x;
 	this.y = y;
 	this.dx = 0;
 	this.dy = 0;
+	this.width = width;
+	this.height = height;
 	this.maxSpeed = 10;
 
 	this.pressLeft = false;
@@ -150,7 +152,7 @@ io.on('connection', (socket) => {
 	socket.id = Math.random();
 	SOCKETS[socket.id] = socket;
 
-	var player = new Player(socket.id, 100, 100);
+	var player = new Player(socket.id, 100, 100, 50, 50);
 	player.onConnect(socket);
 
 	socket.on('disconnect', () => {
@@ -171,7 +173,9 @@ setInterval(() => {
 		data.players.push({
 			id: player.id,
 			x: player.x,
-			y: player.y
+			y: player.y,
+			width: player.width,
+			height: player.height
 		});
 	}
 

@@ -22,8 +22,8 @@ socket.on('update', (data) => {
 	var players = data.players;
 
 	for (var i = 0; i < players.length; i++) {
-		ctx.fillStyle = 'red';
-		ctx.fillRect(players[i].x, players[i].y, 50, 50);	
+		ctx.fillStyle = colorKey[mapKey['player']];
+		ctx.fillRect(players[i].x, players[i].y, players[i].width, players[i].height);	
 	}
 });
 
