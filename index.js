@@ -53,11 +53,25 @@ function Player(id, x, y, width, height) {
 	this.pressUp = false;
 	this.pressRight = false;
 	this.pressDown = false;
+
+	this.keydown = {
+		'left': false,
+		'up': false,   
+		'right': false,  
+		'down': false  
+	}
+
+	this.collision = {
+		'left': false,
+		'up': false,   
+		'right': false,  
+		'down': false  
+	}
 }
 
 Player.prototype = {
 	update: function() {
-		if (this.pressLeft) {
+		if (this.keydown['left']) {
 			this.dx = -this.maxSpeed;
 		}
 
@@ -67,7 +81,7 @@ Player.prototype = {
 			}
 		}
 
-		if (this.pressUp) {
+		if (this.keydown['up']) {
 			this.dy = -this.maxSpeed;
 		}
 
@@ -77,7 +91,7 @@ Player.prototype = {
 			}
 		}
 
-		if (this.pressRight) {
+		if (this.keydown['right']) {
 			this.dx = this.maxSpeed;
 		}
 
@@ -87,7 +101,7 @@ Player.prototype = {
 			}
 		}
 
-		if (this.pressDown) {
+		if (this.keydown['down']) {
 			this.dy = this.maxSpeed;
 		}
 
@@ -105,39 +119,11 @@ Player.prototype = {
 		PLAYERS[socket.id] = this;
 
 		socket.on('keydown', (socket) => {
-			if (socket.inputId == 'left') {
-				this.pressLeft = true;
-			}
-
-			if (socket.inputId == 'up') {
-				this.pressUp = true;
-			}
-
-			if (socket.inputId == 'right') {
-				this.pressRight = true;
-			}
-
-			if (socket.inputId == 'down') {
-				this.pressDown = true;
-			}
+			this.keydown[socket.inputId] = true
 		})
 
 		socket.on('keyup', (socket) => {
-			if (socket.inputId == 'left') {
-				this.pressLeft = false;
-			}
-
-			if (socket.inputId == 'up') {
-				this.pressUp = false;
-			}
-
-			if (socket.inputId == 'right') {
-				this.pressRight = false;
-			}
-
-			if (socket.inputId == 'down') {
-				this.pressDown = false;
-			}
+			this.keydown[socket.inputId] = false
 		})
 	},
 
