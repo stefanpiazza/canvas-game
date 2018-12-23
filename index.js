@@ -59,41 +59,39 @@ Player.prototype = {
 			this.dx = -this.maxSpeed;
 		}
 
+		else {
+			if (this.dx >= -this.maxSpeed && this.dx < 0) {
+				this.dx++;
+			}
+		}
+
 		if (this.pressUp) {
 			this.dy = -this.maxSpeed;
+		}
+
+		else {
+			if (this.dy >= -this.maxSpeed && this.dy < 0) {
+				this.dy++;
+			}
 		}
 
 		if (this.pressRight) {
 			this.dx = this.maxSpeed;
 		}
 
+		else {
+			if (this.dx <= this.maxSpeed && this.dx > 0) {
+				this.dx--;
+			}
+		}
+
 		if (this.pressDown) {
 			this.dy = this.maxSpeed;
 		}
 
-		if (!this.pressLeft || !this.pressUp || !this.pressRight || !this.pressDown) {
-			if (!this.pressLeft) {
-				if (this.dx >= -this.maxSpeed && this.dx < 0) {
-					this.dx ++;
-				}
-			}
-
-			if (!this.pressUp) {
-				if (this.dy >= -this.maxSpeed && this.dy < 0) {
-					this.dy ++;
-				}
-			}
-
-			if (!this.pressRight) {
-				if (this.dx <= this.maxSpeed && this.dx > 0) {
-					this.dx --;
-				}
-			}
-
-			if (!this.pressDown) {
-				if (this.dy <= this.maxSpeed && this.dy > 0) {
-					this.dy --;
-				}
+		else {
+			if (this.dy <= this.maxSpeed && this.dy > 0) {
+				this.dy--;
 			}
 		}
 
@@ -107,22 +105,18 @@ Player.prototype = {
 		socket.on('keydown', (socket) => {
 			if (socket.inputId == 'left') {
 				this.pressLeft = true;
-				// this.dx = -this.maxSpeed;
 			}
 
 			if (socket.inputId == 'up') {
 				this.pressUp = true;
-				// this.dy = -this.maxSpeed;
 			}
 
 			if (socket.inputId == 'right') {
 				this.pressRight = true;
-				// this.dx = this.maxSpeed;
 			}
 
 			if (socket.inputId == 'down') {
 				this.pressDown = true;
-				// this.dy = this.maxSpeed;
 			}
 		})
 
