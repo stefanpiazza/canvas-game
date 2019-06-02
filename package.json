@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js",
-    "watch": "webpack --config=webpack.config.js --watch",
     "start": "node ./dist/server/index.js",
-    "nodemon": "nodemon --watch ./dist",
-    "dev": "cross-env NODE_ENV=development npm-run-all --parallel nodemon watch"
+    "nodemon": "nodemon --watch ./dist/server",
+    "dev-server": "webpack-dev-server --hot --inline",
+    "dev": "cross-env NODE_ENV=development npm-run-all --parallel nodemon dev-server"
   },
   "author": "",
   "license": "ISC",

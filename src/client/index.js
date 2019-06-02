@@ -4,10 +4,6 @@ import io from 'socket.io-client';
 
 import './index.scss';
 
-if (process.env.NODE_ENV === 'development' && module.hot) {
-	module.hot.accept();
-}
-
 var canvas = document.querySelector('#canvas');
 var ctx = canvas.getContext('2d');
 

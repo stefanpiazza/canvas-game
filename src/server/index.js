@@ -5,21 +5,7 @@ const http = require('http');
 const socketIO = require('socket.io');
 const path = require('path');
 
-// const webpack = require('webpack');
-// const webpackDevMiddleware = require('webpack-dev-middleware');
-// const webpackHotMiddleware = require('webpack-hot-middleware');
-
-// const webpackConfig = require('../../webpack.config.js');
-// const compiler = webpack(webpackConfig);
-
 const app = express();
-
-// app.use(webpackDevMiddleware(compiler, webpackConfig.devServer));
-// app.use(
-// 	webpackHotMiddleware(compiler, {
-// 		log: console.log
-// 	})
-// );
 
 app.use('/static', express.static(path.join(__dirname, '../client/static')));
 

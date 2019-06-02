@@ -4,13 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 const clientConfig = {
-	devServer: {
-		contentBase: path.join(__dirname, 'dist/client'),
-		historyApiFallback: true,
-		hot: true,
-		inline: true,
-		publicPath: '/'
-	},
 	devtool: 'source-map',
 	entry: {
 		index: ['./src/client/index.js']
